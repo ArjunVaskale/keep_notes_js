@@ -9,7 +9,7 @@ const Home =  () =>{
 
     const getData = async () =>{
         const res = await fetch('http://localhost:8080/' , {
-            mode : 'no-cors',
+            // mode : 'no-cors',
             
         });
         const data = await res.json()
@@ -19,15 +19,6 @@ const Home =  () =>{
     }
 
 
-
-//     fetch('http://localhost:8080/example', {
-//         mode: 'no-cors',
-//         method: "post",
-//         headers: {
-//              "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify(ob)
-// })
 
     const [noteTxt , setNoteTxt] = useState('')
     
