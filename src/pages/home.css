@@ -1,0 +1,12 @@
+.container {
+    text-align: center;
+}
+
+.headingContainer {
+    background-color:  rgb(60, 95, 219);
+    padding: .1cm;
+}
+.header {
+    font-weight:  bold ;
+    font-size: xx-large ;
+}

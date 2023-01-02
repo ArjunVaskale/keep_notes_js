@@ -1,44 +1,110 @@
 import React, { useEffect, useState } from 'react';
-import {useNavigate} from 'react-router-dom'
+import { json, useNavigate } from 'react-router-dom'
+import { TextField, Button } from '@mui/material';
 
-const Home =  () =>{
+import "./home.css"
+const Home = () => {
+    const [noteTxt, setNoteTxt] = useState('');
+    const [fetchedData, setFetchedData] = useState([]);
 
-    useEffect( ()=>{
+    useEffect(() => {
         getData()
-    },[])
+    }, [])
 
-    const getData = async () =>{
-        const res = await fetch('http://localhost:8080/' , {
-            // mode : 'no-cors',
-            
-        });
+    const getData = async () => {
+        const res = await fetch('http://localhost:8080/');
         const data = await res.json()
-
-        
+        setFetchedData(data)
         console.log(data);
     }
 
+    const addNotes = async () => {
+        await fetch('http://localhost:8080/', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                "item": noteTxt
+            })
+        }).then((res) => {
+            console.log("Added API Response...", res)
+            alert('Added successfully!!!')
+            getData();
+            setNoteTxt('')
+        }).catch((err) => { console.log(err) })
+    }
+
+    const delNotes = async (id) => {
+        await fetch('http://localhost:8080/delete', {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                "delId": id
+            })
+        }).then((data) => {
+            alert('deleted successfully!!!')
+            console.log('Delete API Response...', data);
+            getData();
+        }).catch((err) => { alert(err) })
+    }
+
+    const updateNote = async (id) => {
+        const newData = prompt('please enter new value here');
+        await fetch('http://localhost:8080/update', {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                "itemId": id,
+                "newNote": newData,
+            })
+        }).then((data) => {
+            alert('updated successfully!!!')
+            console.log('Delete API Response...', data);
+            getData();
+        }).catch((err) => { alert(err) })
+    }
 
 
-    const [noteTxt , setNoteTxt] = useState('')
-    
+
     let navigate = useNavigate()
-    const goToContactPage = () =>{
+    const goToContactPage = () => {
         navigate("Contact")
     }
-    return(
-        <>
-        <p>Home page</p>
-        <input 
-            type='text' 
-            value={noteTxt}
-            onChange={(e)=>{setNoteTxt(e.target.value)}}
-        />
+    return (
+        <div className='container'>
+            <div className='headingContainer'>
+            <p className='header'>Home page</p>
+            </div>
+            {
+                fetchedData.length > 0 ?
+                    fetchedData.map((item, key) => (
+                        <div key={key}>
+                            <p >{item.note}</p>
+                            <button onClick={() => { updateNote(item._id) }}>Edit</button>
+                            <button onClick={() => { delNotes(item._id) }}>Delete</button><br />
+                            <p>___________</p>
+                        </div>
 
-        <button onClick={()=>{alert(noteTxt)}}>add notes</button>
-        {/* <button onClick={()=>{goToContactPage()}}>Contact Me</button> */}
-        </>
+                    )) : <p>No data</p>
+
+            }
+
+            <TextField type='text'
+                value={noteTxt}
+                onChange={(e) => { setNoteTxt(e.target.value) }}
+                id="standard-basic"
+                label="Add New Notes"
+                variant="standard" />
+            <Button onClick={() => { addNotes() }} variant="contained">Add</Button>
+
+            {/* <button onClick={()=>{goToContactPage()}}>Contact Me</button> */}
+        </div>
     )
 }
 
-export default Home ;
+export default Home;
