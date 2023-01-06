@@ -12,7 +12,7 @@ const Home = () => {
     }, [])
 
     const getData = async () => {
-        const res = await fetch('http://localhost:8080/');
+        const res = await fetch('https://keepnotesnode-production.up.railway.app/');
         const data = await res.json()
         setFetchedData(data)
         console.log(data);
@@ -36,7 +36,7 @@ const Home = () => {
     }
 
     const delNotes = async (id) => {
-        await fetch('http://localhost:8080/delete', {
+        await fetch('https://keepnotesnode-production.up.railway.app/delete', {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",
@@ -53,7 +53,7 @@ const Home = () => {
 
     const updateNote = async (id) => {
         const newData = prompt('please enter new value here');
-        await fetch('http://localhost:8080/update', {
+        await fetch('https://keepnotesnode-production.up.railway.app/update', {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
