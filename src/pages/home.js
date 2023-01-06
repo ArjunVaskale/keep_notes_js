@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { json, useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import { TextField, Button } from '@mui/material';
 
 import "./home.css"
@@ -71,10 +71,10 @@ const Home = () => {
 
 
 
-    let navigate = useNavigate()
-    const goToContactPage = () => {
-        navigate("Contact")
-    }
+    // let navigate = useNavigate()
+    // const goToContactPage = () => {
+    //     navigate("Contact")
+    // }
     return (
         <div className='container'>
             <div className='headingContainer'>
