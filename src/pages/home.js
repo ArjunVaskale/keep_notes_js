@@ -19,7 +19,7 @@ const Home = () => {
     }
 
     const addNotes = async () => {
-        await fetch('http://localhost:8080/', {
+        await fetch('https://keepnotesnode-production.up.railway.app/', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
