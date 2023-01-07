@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 // import { useNavigate } from 'react-router-dom'
 import { TextField, Button } from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import "./home.css"
 const Home = () => {
+
     const [noteTxt, setNoteTxt] = useState('');
     const [fetchedData, setFetchedData] = useState([]);
 
     useEffect(() => {
-        getData()
+        getData();
     }, [])
+
+
 
     const getData = async () => {
         const res = await fetch('https://keepnotesnode-production.up.railway.app/');
@@ -19,6 +24,11 @@ const Home = () => {
     }
 
     const addNotes = async () => {
+        if (!noteTxt.length) {
+            console.log('length is ...', noteTxt.length);
+            alert("Empty input!");
+            return;
+        }
         await fetch('https://keepnotesnode-production.up.railway.app/', {
             method: 'POST',
             headers: {
@@ -29,7 +39,8 @@ const Home = () => {
             })
         }).then((res) => {
             console.log("Added API Response...", res)
-            alert('Added successfully!!!')
+            // alert('Added successfully!!!')
+            toast("Added successfully!!!")
             getData();
             setNoteTxt('')
         }).catch((err) => { console.log(err) })
@@ -45,7 +56,7 @@ const Home = () => {
                 "delId": id
             })
         }).then((data) => {
-            alert('deleted successfully!!!')
+            toast('deleted successfully!!!')
             console.log('Delete API Response...', data);
             getData();
         }).catch((err) => { alert(err) })
@@ -63,13 +74,13 @@ const Home = () => {
                 "newNote": newData,
             })
         }).then((data) => {
-            alert('updated successfully!!!')
+            toast('updated successfully!!!')
             console.log('Delete API Response...', data);
             getData();
         }).catch((err) => { alert(err) })
     }
 
-
+    // const notify = () => ;
 
     // let navigate = useNavigate()
     // const goToContactPage = () => {
@@ -78,16 +89,15 @@ const Home = () => {
     return (
         <div className='container'>
             <div className='headingContainer'>
-            <p className='header'>Home page</p>
+                <text className='header'>KEEP NOTES</text>
             </div>
             {
                 fetchedData.length > 0 ?
-                    fetchedData.map((item, key) => (
-                        <div key={key}>
-                            <p >{item.note}</p>
-                            <button onClick={() => { updateNote(item._id) }}>Edit</button>
+                    fetchedData.map((item, index) => (
+                        <div key={index} style={{backgroundColor : index % 2 === 0 ? "#EFEDED" : "#DCDCDC" ,  padding : ".5%"}} >
+                            <text>{index + 1} - {item.note}</text>
+                            <button style={{margin :7 }} onClick={() => { updateNote(item._id) }}>Edit</button>
                             <button onClick={() => { delNotes(item._id) }}>Delete</button><br />
-                            <p>___________</p>
                         </div>
 
                     )) : <p>No data</p>
@@ -100,7 +110,10 @@ const Home = () => {
                 id="standard-basic"
                 label="Add New Notes"
                 variant="standard" />
-            <Button onClick={() => { addNotes() }} variant="contained">Add</Button>
+            
+            <Button style={{margin : 10}}  onClick={() => { addNotes() }} variant="contained">Add</Button>
+            {/* <button onClick={()=>{notify()}} variant="contained" >For notify</button> */}
+            <ToastContainer autoClose={3000} />
 
             {/* <button onClick={()=>{goToContactPage()}}>Contact Me</button> */}
         </div>
