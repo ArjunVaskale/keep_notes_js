@@ -91,6 +91,7 @@ const Home = () => {
             <div className='headingContainer'>
                 <text className='header'>KEEP NOTES</text>
             </div>
+            
             {
                 fetchedData.length > 0 ?
                     fetchedData.map((item, index) => (
@@ -111,8 +112,8 @@ const Home = () => {
                 label="Add New Notes"
                 variant="standard" />
             
-            <Button style={{margin : 10}}  onClick={() => { addNotes() }} variant="contained">Add</Button>
-            {/* <button onClick={()=>{notify()}} variant="contained" >For notify</button> */}
+            {/* <Button style={{margin : 10}}  onClick={() => { addNotes() }} variant="contained">Add</Button> */}
+            <button  onClick={() => { addNotes() }}  style={{ margin : 10 , width : '6%' , height : 36  , backgroundColor : 'yellow', borderRadius : 7 }} >ADD</button>
             <ToastContainer autoClose={3000} />
 
             {/* <button onClick={()=>{goToContactPage()}}>Contact Me</button> */}
