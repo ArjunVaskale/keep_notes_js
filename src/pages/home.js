@@ -17,7 +17,8 @@ const Home = () => {
 
 
     const getData = async () => {
-        const res = await fetch('https://keepnotesnode-production.up.railway.app/');
+        // const res = await fetch('https://keepnotesnode-production.up.railway.app/');  
+        const res = await fetch('http://localhost:8080/');  
         const data = await res.json()
         setFetchedData(data)
         console.log(data);
