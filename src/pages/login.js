@@ -7,14 +7,14 @@ import { url } from '../config'
 const LoginPage = () => {
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState('arjun0@gmail.com');
-  const [password, setPassword] = useState('Test@123');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [items, setItems] = useState([]);
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));
     if (token) {
-      console.log("login useEffect" , token);
+      // console.log("login useEffect" , token);
      setItems(token);
      navigate("/home");
     }
@@ -51,7 +51,7 @@ const LoginPage = () => {
       if(result.message){
         alert(result.message)
       }else{
-        console.log('result' , result.token);
+        // console.log('result' , result.token);
         localStorage.setItem('token', JSON.stringify(result.token));
         navigate("/home");
       }

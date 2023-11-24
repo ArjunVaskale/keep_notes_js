@@ -20,7 +20,7 @@ const DataListPage = () => {
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));
-    console.log("list useEffect token", token);
+    // console.log("list useEffect token", token);
     if (token) {
       setToken(token);
     }
@@ -29,7 +29,7 @@ const DataListPage = () => {
 
   const fetchData = async () => {
     try {
-      console.log("fetch Function ...", token);
+      // console.log("fetch Function ...", token);
       const res = await fetch(`${url}/user`, {
         method: 'GET',
         headers: {
@@ -40,9 +40,9 @@ const DataListPage = () => {
       });
       const data = await res.json()
       setNotes(data)
-      console.log("fetched all the notes", data);
+      // console.log("fetched all the notes", data);
     } catch (err) {
-      console.log("fetched data error", err);
+      // console.log("fetched data error", err);
     }
 
   }
@@ -50,7 +50,7 @@ const DataListPage = () => {
   const handleEdit = async (itemId , note) => {
     // Handle edit button click for the item with the given itemId
     const token = localStorage.getItem('token')
-    console.log(token);
+    // console.log(token);
     const newNote = prompt('Please enter new note' , note )
     setNewNotes(newNote);
     const response = await fetch(`${url}/update`, {
@@ -71,8 +71,8 @@ const DataListPage = () => {
   };
 
   const handleDelete = async (itemId) => {
-    console.log(itemId);
-    console.log(token);
+    // console.log(itemId);
+    // console.log(token);
     // Handle delete button click for the item with the given itemId
     const response = await fetch(`${url}/delete`, {
       method: "DELETE",

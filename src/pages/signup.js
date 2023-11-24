@@ -8,9 +8,9 @@ const SignupPage = () => {
 
   const navigate = useNavigate();
   
-  const [username, setUsername] = useState('arjun');
-  const [email, setEmail] = useState('arjun02@gmail.com');
-  const [password, setPassword] = useState('Test@123');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -28,7 +28,7 @@ const SignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   try{
-    console.log(username , email , password);
+    // console.log(username , email , password);
     const response = await fetch(`${url}/signup`, {
       method: "POST",
       headers: {
@@ -41,7 +41,7 @@ const SignupPage = () => {
     })
     });
     const result = await response.json();
-    console.log(JSON.stringify(result));
+    // console.log(JSON.stringify(result));
     if(result.message){
       alert(result.message);
     }else{
