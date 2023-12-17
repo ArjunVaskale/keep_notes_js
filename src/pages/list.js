@@ -27,9 +27,13 @@ const DataListPage = () => {
     setLoader(true);
     if (token) {
       setToken(token);
+      fetchData();
+    }else{
+      setLoader(false);
+      navigate('/');
     }
-    fetchData();
-  }, [token]);
+    
+  },[token]);
 
   const fetchData = async () => {
     try {
