@@ -14,7 +14,6 @@ const AddNotesPage = () => {
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));
-    console.log("list useEffect token" , token);
     if (token) {
      setToken(token);
     }
@@ -65,11 +64,12 @@ const AddNotesPage = () => {
         <button className="add-button" onClick={handleAddTitle}>Add</button>
       </div>
       <div className="top-right">
-        <button className="logout-button" onClick={handleLogout}>Logout</button>
-      </div>
-      <div className="top-right">
         <button className="logout-button" onClick={goToHome}>Go To Home</button>
       </div>
+      <div className="top-right">
+        <button className="logout-button" onClick={handleLogout}>Logout</button>
+      </div>
+
     </div>
   );
 };
