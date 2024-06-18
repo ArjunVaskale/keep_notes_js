@@ -21,12 +21,12 @@ const Home = () => {
         const res = await fetch('http://localhost:8080/');  
         const data = await res.json()
         setFetchedData(data)
-        console.log(data);
+        // console.log(data);
     }
 
     const addNotes = async () => {
         if (!noteTxt.length) {
-            console.log('length is ...', noteTxt.length);
+            // console.log('length is ...', noteTxt.length);
             alert("Empty input!");
             return;
         }
@@ -39,7 +39,7 @@ const Home = () => {
                 "item": noteTxt
             })
         }).then((res) => {
-            console.log("Added API Response...", res)
+            // console.log("Added API Response...", res)
             // alert('Added successfully!!!')
             toast("Added successfully!!!")
             getData();
@@ -58,7 +58,7 @@ const Home = () => {
             })
         }).then((data) => {
             toast('deleted successfully!!!')
-            console.log('Delete API Response...', data);
+            // console.log('Delete API Response...', data);
             getData();
         }).catch((err) => { alert(err) })
     }
@@ -76,7 +76,7 @@ const Home = () => {
             })
         }).then((data) => {
             toast('updated successfully!!!')
-            console.log('Delete API Response...', data);
+            // console.log('Delete API Response...', data);
             getData();
         }).catch((err) => { alert(err) })
     }
